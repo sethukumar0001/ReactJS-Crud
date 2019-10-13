@@ -1,25 +1,38 @@
 import React, { Component } from 'react';
+import ProgressBar from './progressBar'
 
 
 class App extends Component {
-  
-  constructor(props){
+
+  constructor(props) {
     super(props);
     this.state = {
       act: 0,
       index: '',
-      datas: []
+      datas: [],
+      percentage: 1,
+      progress: '',
+      searchString: ""
     }
+
   }
 
-  componentDidMount(){
+  componentDidMount() {
+    this.refs.search.focus();
     this.refs.name.focus();
     this.refs.startDate.focus();
     this.refs.releaseDate.focus();
     this.refs.description.focus();
   }
 
-  fSubmit = (e) =>{
+  handleChange() {
+    this.setState({
+      searchString: this.refs.search.value
+    });
+  }
+  fSubmit = (e) => {
+
+
     e.preventDefault();
 
     let datas = this.state.datas;
@@ -28,12 +41,14 @@ class App extends Component {
     let releaseDate = this.refs.releaseDate.value;
     let description = this.refs.description.value;
 
+    console.log(datas);
+
     if (this.state.act === 0) { //new
       let data = {
         name, startDate, releaseDate, description
       }
-  
-      datas.push(data); 
+
+      datas.push(data);
     } else {                    //update
       let index = this.state.index;
       datas[index].name = name;
@@ -45,7 +60,9 @@ class App extends Component {
     this.setState({
       datas: datas
     });
-
+    this.setState({
+      progress: ((this.state.percentage === 0 ? 'UnRelease' : (this.state.percentage === 100 ? 'Released' : 'InProgress')))
+    })
     this.refs.myForm.reset();
     this.refs.name.focus();
     this.refs.startDate.focus();
@@ -54,10 +71,10 @@ class App extends Component {
   }
 
   fRemove = (i) => {
-    let datas  = this.state.datas;
-    datas.splice(i,1);
+    let datas = this.state.datas;
+    datas.splice(i, 1);
     this.setState({
-      datas:datas
+      datas: datas
     });
 
     this.refs.myForm.reset();
@@ -66,7 +83,7 @@ class App extends Component {
     this.refs.releaseDate.focus();
     this.refs.description.focus();
   }
-  
+
   fEdit = (i) => {
     let data = this.state.datas[i];
     this.refs.name.value = data.name;
@@ -76,7 +93,7 @@ class App extends Component {
 
     this.setState({
       act: 1,
-      index: i 
+      index: i
     })
 
     this.refs.name.focus();
@@ -87,49 +104,57 @@ class App extends Component {
 
   render() {
     let datas = this.state.datas;
+    let _users = this.state.users;
+    let search = this.state.searchString.trim().toLowerCase();
+
+    if (search.length > 0) {
+      _users = _users.filter(function (user) {
+        console.log(search)
+        return (user.vesrionName.toLowerCase().match(search) || (user.description.toLowerCase().match(search))) ?
+          user : null
+
+        // if(user.project_title.toLowerCase().match(search)){
+        //     return user}
+      });
+    }
     return (
       <div className="App">
+
         <form ref="myForm" className="myForm">
+          <input
+            type="text"
+            value={this.state.searchString}
+            ref="search"
+            onChange={this.handleChange.bind(this)}
+            placeholder="type name here"
+          />
           <input type="text" ref="name" placeholder="your name" className="formField" />&nbsp;
           <input type="date" ref="startDate" placeholder="Start Date" className="formField" />&nbsp;
           <input type="date" ref="releaseDate" placeholder="Release Date" className="formField" />&nbsp;
           <input type="text" ref="description" placeholder="description" className="formField" />&nbsp;
-          <button onClick={(e)=>this.fSubmit(e)} className="myButton">Add</button>
+          <button onClick={(e) => this.fSubmit(e)} className="myButton">Add</button>
         </form>
-        
-              <table>
-                <th>
-                  <td>sno</td>
-                  <td>Versionname</td>
-                  <td>Status</td>
-                  <td>Progress</td>
-                  <td>Startdate</td>
-                  <td>Releasedate</td>
-                  <td>Description</td>
-                  <td>Action</td>
-                </th>
-                {datas.map((data, i) =>
-            
-                <tbody>
-                  <td>{i+1}</td>
-                  <td>{data.name}</td>
-                  <td></td>
-                  <td></td>
-                  <td>{data.startDate}</td>
-                  <td>{data.releaseDate}</td>
-                  <td>{data.description}</td>
 
-             
-              <button onClick={()=>this.fRemove(i)} className="myListButton">Delete</button>
-              <button onClick={()=>this.fEdit(i)} className="myListButton">Edit</button>
+        {datas.map((data, i) =>
+          <li>
+            {i + 1}
+            {data.name}
+            <ProgressBar percentage={this.state.percentage} />
+            {this.state.progress}
+            {data.startDate}
+            {data.releaseDate}
+            {data.description}
 
-              </tbody>
-             
-              )}
-              </table>
-         
-       
- 
+
+            <button onClick={() => this.fRemove(i)} className="myListButton">Delete</button>
+            <button onClick={() => this.fEdit(i)} className="myListButton">Edit</button>
+          </li>
+
+        )}
+
+
+
+
       </div>
     );
   }
