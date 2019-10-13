@@ -12,7 +12,7 @@ class App extends Component {
       datas: [],
       percentage: 1,
       progress: '',
-      searchString: ""
+      searchString: ''
     }
 
   }
@@ -104,13 +104,14 @@ class App extends Component {
 
   render() {
     let datas = this.state.datas;
-    let _users = this.state.users;
+    console.log(datas)
+    let _users = this.state.datas;
     let search = this.state.searchString.trim().toLowerCase();
 
     if (search.length > 0) {
       _users = _users.filter(function (user) {
         console.log(search)
-        return (user.vesrionName.toLowerCase().match(search) || (user.description.toLowerCase().match(search))) ?
+        return (user.name.toLowerCase().match(search) || (user.description.toLowerCase().match(search))) ?
           user : null
 
         // if(user.project_title.toLowerCase().match(search)){
@@ -121,13 +122,13 @@ class App extends Component {
       <div className="App">
 
         <form ref="myForm" className="myForm">
-          <input
+          <div><input
             type="text"
             value={this.state.searchString}
             ref="search"
             onChange={this.handleChange.bind(this)}
-            placeholder="type name here"
-          />
+            placeholder="Search...."
+          /></div>
           <input type="text" ref="name" placeholder="your name" className="formField" />&nbsp;
           <input type="date" ref="startDate" placeholder="Start Date" className="formField" />&nbsp;
           <input type="date" ref="releaseDate" placeholder="Release Date" className="formField" />&nbsp;
@@ -135,7 +136,7 @@ class App extends Component {
           <button onClick={(e) => this.fSubmit(e)} className="myButton">Add</button>
         </form>
 
-        {datas.map((data, i) =>
+        {_users.map((data, i) =>
           <li>
             {i + 1}
             {data.name}
