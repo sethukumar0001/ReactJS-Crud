@@ -204,12 +204,11 @@ render(){
                       )}
                       </tbody>
                     </table>
-                    <form ref="myForm" className="myForm">
-         
-          <input type="text" ref="name" placeholder="your name" className="formField" />&nbsp;
-          <input type="date" ref="startDate" placeholder="Start Date" className="formField" />&nbsp;
-          <input type="date" ref="releaseDate" placeholder="Release Date" className="formField" />&nbsp;
-          <input type="text" ref="description" placeholder="description" className="formField" />&nbsp;
+                    <form ref="myForm" className="myForm">    
+          <input type="text" ref="name" placeholder="Version Name" className="input" />&nbsp;
+          <input type="date" ref="startDate" placeholder="Start Date" className="input1" />&nbsp;
+          <input type="date" ref="releaseDate" placeholder="Release Date" className="input1" />&nbsp;
+          <input type="text" ref="description" placeholder="description" className="input1" />&nbsp;
           <Button onClick={(e) => this.fSubmit(e)} className="myButton">Add</Button>
         </form>
                   </div>
