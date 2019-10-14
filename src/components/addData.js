@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import ProgressBar from './progressBar'
-
+import { Button } from 'react-bootstrap';
+import ProgressBar from './progressBar';
+import './progressbar.css'
 
 class App extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -102,8 +102,8 @@ class App extends Component {
     this.refs.description.focus();
   }
 
-  render() {
-    let datas = this.state.datas;
+render(){
+  let datas = this.state.datas;
     console.log(datas)
     let _users = this.state.datas;
     let search = this.state.searchString.trim().toLowerCase();
@@ -121,37 +121,100 @@ class App extends Component {
     return (
       <div className="App">
 
-        <form ref="myForm" className="myForm">
-          <div><input
+  <div class="row">
+            <div className="col-lg-12 grid-margin">
+              <div className="card">
+                <div className="card-body">
+                  <h4 className="card-title"></h4>
+                  <div className="table-responsive">
+          <div className="search"><input
             type="text"
             value={this.state.searchString}
             ref="search"
             onChange={this.handleChange.bind(this)}
             placeholder="Search...."
-          /></div>
+          /></div><br></br>
+                    <table className="table table-bordered">
+
+  
+                      <thead>
+                        <tr>
+                          <th>
+                            Sno
+                          </th>
+                          <th>
+                            Version Name
+                          </th>
+                          <th>
+                            Stauts
+                          </th>
+                          <th>
+                          Progress
+                          </th>
+                          <th>
+                            Start Date
+                          </th>
+                          <th>
+                           Release Date
+                          </th>
+                          <th>
+                           Description
+                          </th>
+                          <th>
+                          Action
+                          </th>
+                          <th></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      {_users.map((data, i) =>
+                        <tr>
+                          <td class="font-weight-medium">
+                           {i+1}
+                          </td>
+                          <td>
+                            {data.name}
+                          </td>
+                          <td>
+                            <div className="progress">
+                            <ProgressBar/>
+                            </div>
+                          </td>
+                          <td>
+                            {this.state.progress}
+                          </td>
+                          <td className="text-danger">
+                            {data.startDate}
+                          </td>
+                          <td className="text-danger"> 
+                          {data.releaseDate}
+                          </td>
+                          <td>
+                          {data.description}
+                          </td>
+                          <td>
+                          <Button onClick={() => this.fRemove(i)} className="myListButton">Delete</Button>
+                            </td>
+                            <td>
+                            <Button onClick={() => this.fEdit(i)} className="myListButton">Edit</Button>
+                            </td>
+                        </tr>
+                      )}
+                      </tbody>
+                    </table>
+                    <form ref="myForm" className="myForm">
+         
           <input type="text" ref="name" placeholder="your name" className="formField" />&nbsp;
           <input type="date" ref="startDate" placeholder="Start Date" className="formField" />&nbsp;
           <input type="date" ref="releaseDate" placeholder="Release Date" className="formField" />&nbsp;
           <input type="text" ref="description" placeholder="description" className="formField" />&nbsp;
-          <button onClick={(e) => this.fSubmit(e)} className="myButton">Add</button>
+          <Button onClick={(e) => this.fSubmit(e)} className="myButton">Add</Button>
         </form>
-
-        {_users.map((data, i) =>
-          <li>
-            {i + 1}
-            {data.name}
-            <ProgressBar percentage={this.state.percentage} />
-            {this.state.progress}
-            {data.startDate}
-            {data.releaseDate}
-            {data.description}
-
-
-            <button onClick={() => this.fRemove(i)} className="myListButton">Delete</button>
-            <button onClick={() => this.fEdit(i)} className="myListButton">Edit</button>
-          </li>
-
-        )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
 
 
