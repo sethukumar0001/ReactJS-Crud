@@ -127,7 +127,8 @@ render(){
                 <div className="card-body">
                   <h4 className="card-title"></h4>
                   <div className="table-responsive">
-          <div className="search"><input
+                   <h2>Releases</h2>
+          <div className="search"><input style={{borderRadius:10}}
             type="text"
             value={this.state.searchString}
             ref="search"
@@ -176,12 +177,13 @@ render(){
                             {data.name}
                           </td>
                           <td>
-                            <div className="progress">
-                            <ProgressBar/>
-                            </div>
+                          <label class="badge badge-warning">{this.state.progress}</label>
+                           
                           </td>
                           <td>
-                            {this.state.progress}
+                          <div className="progress">
+                            <ProgressBar/>
+                            </div>
                           </td>
                           <td className="text-danger">
                             {data.startDate}
