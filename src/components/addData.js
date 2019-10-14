@@ -195,10 +195,10 @@ render(){
                           {data.description}
                           </td>
                           <td>
-                          <Button onClick={() => this.fRemove(i)} className="myListButton">Delete</Button>
+                          <button onClick={() => this.fRemove(i)} class="btn btn-danger btn-rounded btn-fw">Delete</button>
                             </td>
                             <td>
-                            <Button onClick={() => this.fEdit(i)} className="myListButton">Edit</Button>
+                            <button onClick={() => this.fEdit(i)} class="btn btn-primary btn-rounded btn-fw">Edit</button>
                             </td>
                         </tr>
                       )}
