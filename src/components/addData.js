@@ -14,7 +14,7 @@ class App extends Component {
       act: 0,
       index: '',
       datas: [],
-      percentage: 1,
+      percentage: 50,
       progress: '',
       searchString: ''
     }
@@ -180,7 +180,7 @@ class App extends Component {
                           </td>
                           <td>
                             <div className="progress">
-                              <ProgressBar />
+                              <ProgressBar percentage={this.state.percentage} />
                             </div>
                           </td>
                           <td className="text-danger">

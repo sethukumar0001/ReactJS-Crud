@@ -7,7 +7,7 @@ import './progressbar.css';
 
 export default function ProgressBar(props) {
     const [percentage, setPercentage] = useState(props.percentage)
-    console.log(percentage);
+    // console.log(props.percentage);
     return (
         <div className="progress-bar">
             <Filler percentage={percentage} />
