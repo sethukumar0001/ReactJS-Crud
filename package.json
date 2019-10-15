@@ -2,6 +2,10 @@
   "name": "logward_crud",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "npm": "6.4.1",
+    "node": "10.5.0"
+  },
   "dependencies": {
     "heroku": "^7.33.3",
     "react": "^16.10.2",
