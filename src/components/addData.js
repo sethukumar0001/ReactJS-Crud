@@ -60,11 +60,9 @@ class App extends Component {
       datas[index].releaseDate = releaseDate;
       datas[index].description = description;
     }
-
+    
     this.setState({
-      datas: datas
-    });
-    this.setState({
+      datas,
       progress: ((this.state.percentage === 0 ? 'UnRelease' : (this.state.percentage === 100 ? 'Released' : 'InProgress')))
     })
     this.refs.myForm.reset();
@@ -76,10 +74,9 @@ class App extends Component {
 
   //remove data function
   fRemove = (i) => {
-    let datas = this.state.datas;
-    datas.splice(i, 1);
+    let datas = this.state.datas.splice(i, 1);
     this.setState({
-      datas: datas
+      datas
     });
 
     this.refs.myForm.reset();
